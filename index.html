@@ -48,7 +48,8 @@
 	var layerOrder=new Array();
 							function pop_AOG(feature, layer) {
 										
-	var popupContent = '<table><tr><th scope="row">COUNTYNBR</th><td>' + Autolinker.link(String(feature.properties['COUNTYNBR'])) + '</td></tr><tr><th scope="row">ENTITYNBR</th><td>' + Autolinker.link(String(feature.properties['ENTITYNBR'])) + '</td></tr><tr><th scope="row">ENTITYYR</th><td>' + Autolinker.link(String(feature.properties['ENTITYYR'])) + '</td></tr><tr><th scope="row">NAME</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + '</td></tr><tr><th scope="row">FIPS</th><td>' + Autolinker.link(String(feature.properties['FIPS'])) + '</td></tr><tr><th scope="row">STATEPLANE</th><td>' + Autolinker.link(String(feature.properties['STATEPLANE'])) + '</td></tr><tr><th scope="row">POP_LASTCE</th><td>' + Autolinker.link(String(feature.properties['POP_LASTCE'])) + '</td></tr><tr><th scope="row">POP_CURRES</th><td>' + Autolinker.link(String(feature.properties['POP_CURRES'])) + '</td></tr><tr><th scope="row">FIPS_STR</th><td>' + Autolinker.link(String(feature.properties['FIPS_STR'])) + '</td></tr><tr><th scope="row">COLOR4</th><td>' + Autolinker.link(String(feature.properties['COLOR4'])) + '</td></tr><tr><th scope="row">Shape_Leng</th><td>' + Autolinker.link(String(feature.properties['Shape_Leng'])) + '</td></tr><tr><th scope="row">Shape_Area</th><td>' + Autolinker.link(String(feature.properties['Shape_Area'])) + '</td></tr><tr><th scope="row">AOG</th><td>' + Autolinker.link(String(feature.properties['AOG'])) + '</td></tr></table>';
+	var popupContent = '<table></tr><tr><th scope="row">AOG</th><td>' + Autolinker.link(String(feature.properties['AOG'])) 
+						+ '</td></tr></table>';
 	layer.bindPopup(popupContent);
 
 
@@ -109,7 +110,7 @@
 			return this._div;
 	    };
 	    title.update = function () {
-			this._div.innerHTML = '<h2>This is the title</h2>This is the subtitle'
+			this._div.innerHTML = '<h2>Utah AOG Mapping</h2>Analysing Clusters in Utah'
 		};
 		title.addTo(map);
 	var baseMaps = {
@@ -118,7 +119,7 @@
 		'OSM DE': basemap_2,
 		'OSM HOT': basemap_3,
 		'Stamen Watercolor': basemap_4};
-	L.control.layers(baseMaps,{"2015272ClusterAnalysiswaddresslibre500shp": exp_2015272ClusterAnalysiswaddresslibre500shpJSON,"AOG": exp_AOGJSON},{collapsed:false}).addTo(map);
+	L.control.layers(baseMaps,{"Utah Businesses": exp_2015272ClusterAnalysiswaddresslibre500shpJSON,"AOG": exp_AOGJSON},{collapsed:false}).addTo(map);
 		map.fitBounds(feature_group.getBounds());
 	L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
 	</script>
