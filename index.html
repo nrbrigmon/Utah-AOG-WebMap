@@ -21,17 +21,16 @@
 	<script src="js/label.js"></script>
 	<script src="js/leaflet.markercluster.js"></script>
 	<input id="slide" type="range" min="0" max="1" step="0.1" value="1" onchange="updateOpacity(this.value)">
-				<script src='data/exp_2015272ClusterAnalysiswaddresslibreshp.js' ></script>
-				
-				<script src='data/exp_AOG.js' ></script>
+	<script src='data/exp_2015272ClusterAnalysiswaddresslibreshp.js' ></script>
+	<script src='data/exp_AOG.js' ></script>
 				
 	<script>
 		var map = L.map('map', { zoomControl:true }).fitBounds([[36.7783345514,-115.739588748],[42.0924227749,-107.063127211]]);
 		var hash = new L.Hash(map); //add hashes to html address to easy share locations
 		var additional_attrib = 'created w. <a href="https://github.com/geolicious/qgis2leaf" target ="_blank">qgis2leaf</a> by <a href="http://www.geolicious.de" target ="_blank">Geolicious</a> & contributors<br>';
-	var feature_group = new L.featureGroup([]);
+		var feature_group = new L.featureGroup([]);
 
-	var raster_group = new L.LayerGroup([]);
+		var raster_group = new L.LayerGroup([]);
 	
 		var basemap_0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
 			attribution: additional_attrib + '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'});	
@@ -44,63 +43,66 @@
 			attribution: additional_attrib + 'Tiles Courtesy of <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'});
 		var basemap_4 = L.tileLayer('http://a.tile.stamen.com/terrain/{z}/{x}/{y}.png', { 
 			attribution: additional_attrib + 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'});	
-	var layerOrder=new Array();
-							function pop_AOG(feature, layer) {
-										
-	var popupContent = '<table><tr><th scope="row">AOG</th><td>' + Autolinker.link(String(feature.properties['AOG'])) + '</td></tr></table>';
-	layer.bindPopup(popupContent);
-
-
-				}
+		
+		var layerOrder=new Array();
+		
+		function pop_AOG(feature, layer) {
+			var popupContent = '<table><tr><th scope="row">AOG</th><td>' + Autolinker.link(String(feature.properties['AOG'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
 						
-					var exp_AOGJSON = new L.geoJson(exp_AOG,{
-						onEachFeature: pop_AOG,
-						style: function (feature) {
-							return {fillColor: feature.properties.color_qgis2leaf,
-									color: '#000',
-									weight: 1,
-									opacity: feature.properties.transp_qgis2leaf,
-									fillOpacity: feature.properties.transp_qgis2leaf};
-							}
-						});
-					feature_group.addLayer(exp_AOGJSON);
+		var exp_AOGJSON = new L.geoJson(exp_AOG,{
+			onEachFeature: pop_AOG,
+			style: function (feature) {
+				return {fillColor: feature.properties.color_qgis2leaf,
+						color: '#000',
+						weight: 1,
+						opacity: feature.properties.transp_qgis2leaf,
+						fillOpacity: feature.properties.transp_qgis2leaf};
+				}
+		});
+		
+		feature_group.addLayer(exp_AOGJSON);
 					
-						//add comment sign to hide this layer on the map in the initial view.
-						exp_AOGJSON.addTo(map);
-							function pop_2015272ClusterAnalysiswaddresslibreshp(feature, layer) {
+		//add comment sign to hide this layer on the map in the initial view.
+		exp_AOGJSON.addTo(map);
+			
+		function pop_2015272ClusterAnalysiswaddresslibreshp(feature, layer) {
 										
-	var popupContent = '<table><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + 
-	 		'</td></tr><tr><th scope="row">City</th><td>' + Autolinker.link(String(feature.properties['CITY'])) + 
-	 		', Utah</td></tr><tr><th scope="row">Cluster</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + '</td></tr><tr><th scope="row">NAICS Code</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + '</td></tr><tr><th scope="row">NAICS Industry Title</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr></table>';
-	layer.bindPopup(popupContent);
-
-
-				}
+			var popupContent = '<table><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + 
+		 		'</td></tr><tr><th scope="row">City</th><td>' + Autolinker.link(String(feature.properties['CITY'])) + 
+		 		', Utah</td></tr><tr><th scope="row">Cluster</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + '</td></tr><tr><th scope="row">NAICS Code</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + '</td></tr><tr><th scope="row">NAICS Industry</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
 						
-				var exp_2015272ClusterAnalysiswaddresslibreshpJSON = new L.geoJson(exp_2015272ClusterAnalysiswaddresslibreshp,{
-					onEachFeature: pop_2015272ClusterAnalysiswaddresslibreshp,
-					pointToLayer: function (feature, latlng) {  
-						return L.circleMarker(latlng, {
-							radius: feature.properties.radius_qgis2leaf,
-							fillColor: feature.properties.color_qgis2leaf,
-
-							color: feature.properties.borderColor_qgis2leaf,
-							weight: 1,
-							opacity: feature.properties.transp_qgis2leaf,
-							fillOpacity: feature.properties.transp_qgis2leaf
-							})
-						}
-					});
-								feature_group.addLayer(exp_2015272ClusterAnalysiswaddresslibreshpJSON);
-
-				layerOrder[layerOrder.length] = exp_2015272ClusterAnalysiswaddresslibreshpJSON;
-				for (index = 0; index < layerOrder.length; index++) {
-					feature_group.removeLayer(layerOrder[index]);feature_group.addLayer(layerOrder[index]);
+		var exp_2015272ClusterAnalysiswaddresslibreshpJSON = new L.geoJson(exp_2015272ClusterAnalysiswaddresslibreshp,{
+			onEachFeature: pop_2015272ClusterAnalysiswaddresslibreshp,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+					radius: feature.properties.radius_qgis2leaf,
+					fillColor: feature.properties.color_qgis2leaf,
+					color: feature.properties.borderColor_qgis2leaf,
+					weight: 1,
+					opacity: feature.properties.transp_qgis2leaf,
+					fillOpacity: feature.properties.transp_qgis2leaf
+					})
 				}
+			});
 				
-						//add comment sign to hide this layer on the map in the initial view.
-						exp_2015272ClusterAnalysiswaddresslibreshpJSON.addTo(map);
+		feature_group.addLayer(exp_2015272ClusterAnalysiswaddresslibreshpJSON);
+
+		layerOrder[layerOrder.length] = exp_2015272ClusterAnalysiswaddresslibreshpJSON;
+		
+		for (index = 0; index < layerOrder.length; index++) {
+				feature_group.removeLayer(layerOrder[index]);
+				feature_group.addLayer(layerOrder[index]);
+		}
+				
+		//add comment sign to hide this layer on the map in the initial view.
+		exp_2015272ClusterAnalysiswaddresslibreshpJSON.addTo(map);
+		
 		var title = new L.Control();
+		
 		title.onAdd = function (map) {
 			this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
 			this.update();
@@ -110,25 +112,47 @@
 			this._div.innerHTML = '<h2>Utah AOG Analysis</h2>Business Clusters Throughout Utah'
 		};
 		title.addTo(map);
-		var legend = L.control({position: 'bottomright'});
 		
-		legend.onAdd = function (map) {
-		var div = L.DomUtil.create('div', 'info legend');
-		div.innerHTML = "<h3>Legend</h3><table></table>";
-    		return div;
-		};
-		legend.addTo(map);
+		// var legend = L.control({position: 'bottomright'});
+		// legend.onAdd = function (map) {
+		// 	var div = L.DomUtil.create('div', 'info legend');
+		// 	div.innerHTML = "<h3>Legend</h3><table></table>";
+ 	// 		return div;
+		// };
+		// legend.addTo(map);
 
-	var baseMaps = {
-		'OSM Standard': basemap_0,
-		'Stamen Toner': basemap_1,
-		'OSM HOT': basemap_2,
-		'MapQuestOpen Aerial': basemap_3,
-		'Stamen Terrain': basemap_4};
-	L.control.layers(baseMaps,{"Business Locations": exp_2015272ClusterAnalysiswaddresslibreshpJSON,"AOG": exp_AOGJSON},{collapsed:false}).addTo(map);
+		var baseMaps = {
+			'OSM Standard': basemap_0,
+			'Stamen Toner': basemap_1,
+			'OSM HOT': basemap_2,
+			'MapQuestOpen Aerial': basemap_3,
+			'Stamen Terrain': basemap_4
+		};
+
+		L.control.layers(baseMaps,{"Business Locations": exp_2015272ClusterAnalysiswaddresslibreshpJSON,"AOG": exp_AOGJSON},{collapsed:false}).addTo(map);
+		
 		function updateOpacity(value) {
-	}
-	L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
+		}
+
+		var test = L.control({position: 'topright'});
+		test.onAdd = function (map) {
+			var div = L.DomUtil.create('div', 'info legend');
+			div.innerHTML = "<select id='none' onchange=testFunc()>" +
+                               "<option selected disabled value='none'>Choose a Cluster</option>" +
+                               "<option value='none'>A</option>" +
+                               "<option value='none'>B</option>" +
+                               "<option value='none'>C</option>" +
+                               "<option value='none'>D</option>" + "</select>";
+    		div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation;
+ 			return div;
+		};
+		test.addTo(map);
+		function testFunc(){
+			console.log('working!');
+			alert('Dropdown is working!');
+		};
+		
+		L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
 	</script>
 </body>
 </html>
