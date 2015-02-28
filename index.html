@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head> 
-	<title>QGIS2leaf webmap2</title>
+	<title>Utah AOG Mapping</title>
 	
 	<meta charset="utf-8" />
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" /> <!-- we will us e this as the styling script for our webmap-->
@@ -36,6 +36,15 @@
 		var basemap_0 = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
 			attribution: additional_attrib + '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'});	
 		basemap_0.addTo(map);	
+
+		var basemap_1 = L.tileLayer('http://a.tile.stamen.com/toner/{z}/{x}/{y}.png', { 
+			attribution: additional_attrib + 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'});
+		var basemap_2 = L.tileLayer('http://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png', { 
+			attribution: additional_attrib + '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'});
+		var basemap_3 = L.tileLayer('http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', { 
+			attribution: additional_attrib + '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Tiles courtesy of <a href="http://hot.openstreetmap.org/" target="_blank">Humanitarian OpenStreetMap Team</a>'});
+		var basemap_4 = L.tileLayer('http://a.tile.stamen.com/watercolor/{z}/{x}/{y}.png', { 
+			attribution: additional_attrib + 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data: &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors,<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'});	
 	var layerOrder=new Array();
 							function pop_AOG(feature, layer) {
 										
@@ -61,9 +70,12 @@
 						exp_AOGJSON.addTo(map);
 							function pop_2015272ClusterAnalysiswaddresslibre500shp(feature, layer) {
 										
-	var popupContent = '<table><tr><th scope="row">NAME</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + '</td></tr><tr><th scope="row">ADDRESS1</th><td>' + Autolinker.link(String(feature.properties['ADDRESS1'])) + '</td></tr><tr><th scope="row">ADDRESS2</th><td>' + Autolinker.link(String(feature.properties['ADDRESS2'])) + '</td></tr><tr><th scope="row">CITY</th><td>' + Autolinker.link(String(feature.properties['CITY'])) + '</td></tr><tr><th scope="row">STATE</th><td>' + Autolinker.link(String(feature.properties['STATE'])) + '</td></tr><tr><th scope="row">ZIP</th><td>' + Autolinker.link(String(feature.properties['ZIP'])) + '</td></tr><tr><th scope="row">COUNTYCODE</th><td>' + Autolinker.link(String(feature.properties['COUNTYCODE'])) + '</td></tr><tr><th scope="row">COUNTYNAME</th><td>' + Autolinker.link(String(feature.properties['COUNTYNAME'])) + '</td></tr><tr><th scope="row">PHONE</th><td>' + Autolinker.link(String(feature.properties['PHONE'])) + '</td></tr><tr><th scope="row">EMPRANGE</th><td>' + Autolinker.link(String(feature.properties['EMPRANGE'])) + '</td></tr><tr><th scope="row">EMPRANGECO</th><td>' + Autolinker.link(String(feature.properties['EMPRANGECO'])) + '</td></tr><tr><th scope="row">NAICS</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + '</td></tr><tr><th scope="row">OWNERSHIP</th><td>' + Autolinker.link(String(feature.properties['OWNERSHIP'])) + '</td></tr><tr><th scope="row">NAICS_DESC</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr><tr><th scope="row">NAICS_CLUS</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + '</td></tr><tr><th scope="row">addrtype</th><td>' + Autolinker.link(String(feature.properties['addrtype'])) + '</td></tr><tr><th scope="row">addrlocat</th><td>' + Autolinker.link(String(feature.properties['addrlocat'])) + '</td></tr></table>';
+	var popupContent = '<table><tr><th scope="row">Business Name</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + 
+	'</td></tr><tr><th scope="row">City</th><td>' + Autolinker.link(String(feature.properties['CITY'])) + ", Utah" +
+	'</td></tr><tr><th scope="row">Cluster</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + 
+	'</td></tr><tr><th scope="row">NAICS Code</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + 
+	'</td></tr><tr><th scope="row">NAICS Industry Title</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr></table>';
 	layer.bindPopup(popupContent);
-
 
 				}
 						
@@ -101,10 +113,14 @@
 		};
 		title.addTo(map);
 	var baseMaps = {
-		'OSM Standard': basemap_0
-	};
+		'OSM Standard': basemap_0,
+		'Stamen Toner': basemap_1,
+		'OSM DE': basemap_2,
+		'OSM HOT': basemap_3,
+		'Stamen Watercolor': basemap_4};
 	L.control.layers(baseMaps,{"2015272ClusterAnalysiswaddresslibre500shp": exp_2015272ClusterAnalysiswaddresslibre500shpJSON,"AOG": exp_AOGJSON},{collapsed:false}).addTo(map);
 		map.fitBounds(feature_group.getBounds());
+	L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
 	</script>
 </body>
 </html>
