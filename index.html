@@ -134,10 +134,10 @@
 		function updateOpacity(value) {
 		}
 
-		var test = L.control({position: 'topright'});
-		test.onAdd = function (map) {
+		var clusterDropdown = L.control({position: 'topright'});
+		clusterDropdown.onAdd = function (map) {
 			var div = L.DomUtil.create('div', 'info legend');
-			div.innerHTML = "<select id='none' onchange=testFunc(this.value)>" +
+			div.innerHTML = "<select id='none' onchange=addLayer(this.value)>" +
                                "<option selected disabled value='none'>Choose a Cluster</option>" +
                                "<option value='Aerospace & Defense'>Aerospace & Defense</option>" +
                                "<option value='Energy & Natural Resources'>Energy & Natural Resources</option>" +
@@ -149,19 +149,22 @@
     		div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation;
  			return div;
 		};
-		test.addTo(map);
+		clusterDropdown.addTo(map);
 		
+		
+
 		var dropdownLayer;
-		function testFunc(text){
+		function addLayer(text){
 			var bizData = exp_2015272ClusterAnalysiswaddresslibreshp;
 			var selection = text;
 			// console.log(text);
 			// console.log(dropdownLayer);
-			
+
 			if (dropdownLayer){
 				map.removeLayer(dropdownLayer);
 			}
 			dropdownLayer = L.geoJson(bizData, {
+				onEachFeature: pop_2015272ClusterAnalysiswaddresslibreshp,
 			    filter: function(feature, layer) {
 				        return feature.properties.NAICS_CLUS == selection;
 				    }
