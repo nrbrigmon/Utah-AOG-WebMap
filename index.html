@@ -23,6 +23,7 @@
 	<input id="slide" type="range" min="0" max="1" step="0.1" value="1" onchange="updateOpacity(this.value)">
 	<script src='data/exp_2015272ClusterAnalysiswaddresslibreshp.js' ></script>
 	<script src='data/exp_AOG.js' ></script>
+	<script src='data/exp_AOGLabelsshp.js' ></script>
 				
 	<script>
 		var map = L.map('map', { zoomControl:true }).fitBounds([[36.7783345514,-115.739588748],[42.0924227749,-107.063127211]]);
@@ -65,8 +66,37 @@
 		feature_group.addLayer(exp_AOGJSON);
 					
 		//add comment sign to hide this layer on the map in the initial view.
-		exp_AOGJSON.addTo(map);
-			
+		exp_AOGJSON.addTo(map); //this is the Boundary layer
+		function pop_AOGLabelsshp(feature, layer) {
+										
+				var popupContent = '';
+				layer.bindPopup(popupContent);
+
+
+		}
+						
+		var exp_AOGLabelsshpJSON = new L.geoJson(exp_AOGLabelsshp,{
+			onEachFeature: pop_AOGLabelsshp,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+					radius: 0,
+					fillColor: '',
+					color: '',
+					opacity: feature.properties.transp_qgis2leaf,
+					fillOpacity: feature.properties.transp_qgis2leaf
+					}).bindLabel(feature.properties.AOG, {noHide: true})
+				}
+			});
+				feature_group.addLayer(exp_AOGLabelsshpJSON);
+
+				layerOrder[layerOrder.length] = exp_AOGLabelsshpJSON;
+				for (index = 0; index < layerOrder.length; index++) {
+					feature_group.removeLayer(layerOrder[index]);feature_group.addLayer(layerOrder[index]);
+				}
+				
+				//add comment sign to hide this layer on the map in the initial view.
+				exp_AOGLabelsshpJSON.addTo(map);
+
 		function pop_2015272ClusterAnalysiswaddresslibreshp(feature, layer) {
 										
 			var popupContent = '<table><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + 
@@ -140,7 +170,8 @@
 		L.control.layers(baseMaps,
 			{
 				// "Business Locations": exp_2015272ClusterAnalysiswaddresslibreshpJSON,
-				"AOG": exp_AOGJSON
+				"AOG": exp_AOGJSON,
+				//"AOG Names": exp_AOGLabelsshp
 			},
 			{collapsed:false}).addTo(map);
 		
