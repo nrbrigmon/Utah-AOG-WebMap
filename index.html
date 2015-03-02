@@ -24,6 +24,12 @@
 	<script src='data/exp_2015272ClusterAnalysiswaddresslibreshp.js' ></script>
 	<script src='data/exp_AOG.js' ></script>
 	<script src='data/exp_AOGLabelsshp.js' ></script>
+	<script src='data/aerospace_geojson.js' ></script>
+	<script src='data/energy_geojson.js' ></script>
+	<script src='data/finance_geojson.js' ></script>
+	<script src='data/it_geojson.js' ></script>
+	<script src='data/outdoor_geojson.js' ></script>
+	<script src='data/science_geojson.js' ></script>
 				
 	<script>
 		var map = L.map('map', { zoomControl:true }).fitBounds([[36.7783345514,-115.739588748],[42.0924227749,-107.063127211]]);
@@ -68,11 +74,8 @@
 		//add comment sign to hide this layer on the map in the initial view.
 		exp_AOGJSON.addTo(map); //this is the Boundary layer
 		function pop_AOGLabelsshp(feature, layer) {
-										
 				var popupContent = '';
 				layer.bindPopup(popupContent);
-
-
 		}
 						
 		var exp_AOGLabelsshpJSON = new L.geoJson(exp_AOGLabelsshp,{
@@ -87,52 +90,217 @@
 					}).bindLabel(feature.properties.AOG, {noHide: true})
 				}
 			});
-				feature_group.addLayer(exp_AOGLabelsshpJSON);
+		feature_group.addLayer(exp_AOGLabelsshpJSON);
 
-				layerOrder[layerOrder.length] = exp_AOGLabelsshpJSON;
-				for (index = 0; index < layerOrder.length; index++) {
-					feature_group.removeLayer(layerOrder[index]);feature_group.addLayer(layerOrder[index]);
-				}
-				
-				//add comment sign to hide this layer on the map in the initial view.
-				exp_AOGLabelsshpJSON.addTo(map);
+		layerOrder[layerOrder.length] = exp_AOGLabelsshpJSON;
+		for (index = 0; index < layerOrder.length; index++) {
+			feature_group.removeLayer(layerOrder[index]);feature_group.addLayer(layerOrder[index]);
+		}
+		
+		//add comment sign to hide this layer on the map in the initial view.
+		exp_AOGLabelsshpJSON.addTo(map);
 
-		function pop_2015272ClusterAnalysiswaddresslibreshp(feature, layer) {
-										
+		/////////////////////////////
+		//aerospace
+		function pop_aerospace(feature, layer) {
 			var popupContent = '<table><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + 
 		 		'</td></tr><tr><th scope="row">City</th><td>' + Autolinker.link(String(feature.properties['CITY'])) + 
-		 		', Utah</td></tr><tr><th scope="row">Cluster</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + '</td></tr><tr><th scope="row">NAICS Code</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + '</td></tr><tr><th scope="row">NAICS Industry</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr></table>';
+		 		', Utah</td></tr><tr><th scope="row">Cluster</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Code</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Industry</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr></table>';
 			layer.bindPopup(popupContent);
 		}
 						
-		var exp_2015272ClusterAnalysiswaddresslibreshpJSON = new L.geoJson(exp_2015272ClusterAnalysiswaddresslibreshp,{
-			onEachFeature: pop_2015272ClusterAnalysiswaddresslibreshp,
+		var exp_aerospace = new L.geoJson(aerospace_json,{
+			onEachFeature: pop_aerospace,
 			pointToLayer: function (feature, latlng) {  
 				return L.circleMarker(latlng, {
-					radius: feature.properties.radius_qgis2leaf,
-					fillColor: feature.properties.color_qgis2leaf,
-					color: feature.properties.borderColor_qgis2leaf,
-					weight: 1,
-					opacity: feature.properties.transp_qgis2leaf,
-					fillOpacity: feature.properties.transp_qgis2leaf
+			    					radius: 5, 
+									fillColor: '#ffff33',
+									weight: 1,
+									color: '#111111',
+			    					fillOpacity: 0.75
 					})
 				}
 			});
-				
-		feature_group.addLayer(exp_2015272ClusterAnalysiswaddresslibreshpJSON);
-
-		layerOrder[layerOrder.length] = exp_2015272ClusterAnalysiswaddresslibreshpJSON;
+		feature_group.addLayer(exp_aerospace);
+		layerOrder[layerOrder.length] = exp_aerospace;
 		
 		for (index = 0; index < layerOrder.length; index++) {
 				feature_group.removeLayer(layerOrder[index]);
 				feature_group.addLayer(layerOrder[index]);
 		}
-				
 		//add comment sign to hide this layer on the map in the initial view.
-		// exp_2015272ClusterAnalysiswaddresslibreshpJSON.addTo(map);
+		// exp_aerospace.addTo(map);
+
+		/////////////////////////////
+		//energy
+		function pop_energy(feature, layer) {
+			var popupContent = '<table><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + 
+		 		'</td></tr><tr><th scope="row">City</th><td>' + Autolinker.link(String(feature.properties['CITY'])) + 
+		 		', Utah</td></tr><tr><th scope="row">Cluster</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Code</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Industry</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+						
+		var exp_energy = new L.geoJson(energy_json,{
+			onEachFeature: pop_energy,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+			    					radius: 5, 
+									fillColor: '#377eb8',
+									weight: 1,
+									color: '#111111',
+			    					fillOpacity: 0.75
+					})
+				}
+			});
+		feature_group.addLayer(exp_energy);
+		layerOrder[layerOrder.length] = exp_energy;
 		
+		for (index = 0; index < layerOrder.length; index++) {
+				feature_group.removeLayer(layerOrder[index]);
+				feature_group.addLayer(layerOrder[index]);
+		}
+		//add comment sign to hide this layer on the map in the initial view.
+		// exp_energy.addTo(map);
+		
+		/////////////////////////////
+		//finance
+		function pop_finance(feature, layer) {
+			var popupContent = '<table><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + 
+		 		'</td></tr><tr><th scope="row">City</th><td>' + Autolinker.link(String(feature.properties['CITY'])) + 
+		 		', Utah</td></tr><tr><th scope="row">Cluster</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Code</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Industry</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+						
+		var exp_finance = new L.geoJson(finance_json,{
+			onEachFeature: pop_energy,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+			    					radius: 5, 
+									fillColor: '#e41a1c',
+									weight: 1,
+									color: '#111111',
+			    					fillOpacity: 0.75
+					})
+				}
+			});
+		feature_group.addLayer(exp_finance);
+		layerOrder[layerOrder.length] = exp_finance;
+		
+		for (index = 0; index < layerOrder.length; index++) {
+				feature_group.removeLayer(layerOrder[index]);
+				feature_group.addLayer(layerOrder[index]);
+		}
+		//add comment sign to hide this layer on the map in the initial view.
+		// exp_finance.addTo(map);
+		
+		/////////////////////////////
+		//it and software
+		function pop_it(feature, layer) {
+			var popupContent = '<table><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + 
+		 		'</td></tr><tr><th scope="row">City</th><td>' + Autolinker.link(String(feature.properties['CITY'])) + 
+		 		', Utah</td></tr><tr><th scope="row">Cluster</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Code</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Industry</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+						
+		var exp_it = new L.geoJson(it_json,{
+			onEachFeature: pop_it,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+			    					radius: 5, 
+									fillColor: '#ff7f00',
+									weight: 1,
+									color: '#111111',
+			    					fillOpacity: 0.75
+					})
+				}
+			});
+		feature_group.addLayer(exp_it);
+		layerOrder[layerOrder.length] = exp_it;
+		
+		for (index = 0; index < layerOrder.length; index++) {
+				feature_group.removeLayer(layerOrder[index]);
+				feature_group.addLayer(layerOrder[index]);
+		}
+		//add comment sign to hide this layer on the map in the initial view.
+		// exp_it.addTo(map);
+		
+		/////////////////////////////
+		//life sciences
+		function pop_science(feature, layer) {
+			var popupContent = '<table><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + 
+		 		'</td></tr><tr><th scope="row">City</th><td>' + Autolinker.link(String(feature.properties['CITY'])) + 
+		 		', Utah</td></tr><tr><th scope="row">Cluster</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Code</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Industry</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+						
+		var exp_science = new L.geoJson(science_json,{
+			onEachFeature: pop_science,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+			    					radius: 5, 
+									fillColor: '#984ea3',
+									weight: 1,
+									color: '#111111',
+			    					fillOpacity: 0.75
+					})
+				}
+			});
+		feature_group.addLayer(exp_science);
+		layerOrder[layerOrder.length] = exp_science;
+		
+		for (index = 0; index < layerOrder.length; index++) {
+				feature_group.removeLayer(layerOrder[index]);
+				feature_group.addLayer(layerOrder[index]);
+		}
+		//add comment sign to hide this layer on the map in the initial view.
+		// exp_science.addTo(map);
+
+		/////////////////////////////
+		//outdoor recreation
+		function pop_outdoor(feature, layer) {
+			var popupContent = '<table><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + 
+		 		'</td></tr><tr><th scope="row">City</th><td>' + Autolinker.link(String(feature.properties['CITY'])) + 
+		 		', Utah</td></tr><tr><th scope="row">Cluster</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Code</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Industry</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+						
+		var exp_outdoor = new L.geoJson(outdoor_json,{
+			onEachFeature: pop_outdoor,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+			    					radius: 5, 
+									fillColor: '#4daf4a',
+									weight: 1,
+									color: '#111111',
+			    					fillOpacity: 0.75
+					})
+				}
+			});
+		feature_group.addLayer(exp_outdoor);
+		layerOrder[layerOrder.length] = exp_outdoor;
+		
+		for (index = 0; index < layerOrder.length; index++) {
+				feature_group.removeLayer(layerOrder[index]);
+				feature_group.addLayer(layerOrder[index]);
+		}
+		//add comment sign to hide this layer on the map in the initial view.
+		// exp_outdoor.addTo(map);
+
+		/////////////////////////////
+		//title
 		var title = new L.Control();
-		
 		title.onAdd = function (map) {
 			this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
 			this.update();
@@ -143,23 +311,11 @@
 		};
 		title.addTo(map);
 
-		// var civicLogo = L.control({position: 'bottomleft'});
-		
-		// civicLogo.onAdd = function (map) {
-		// 	this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-		// 	this.update();
-		// 	return this._div;
-	 //    };
-	 //    civicLogo.update = function () {
-		// 	this._div.innerHTML = '<img class="civicLogo" src="pictures/logo_web.png" />';
-		// };
-		// civicLogo.addTo(map);
-
+		/////////////////////////////
+		//legend
 		var legend = L.control({position: 'bottomright'});
-		
 		legend.onAdd = function (map) {
 			var div = L.DomUtil.create('div', 'info legend');
-			
 			div.innerHTML = "<h3>Legend</h3>" + 
 							"<table><tr><td><i style='background:#ffff33'></i> Aerospace & Defense</td></tr>"+ 
 							"<tr><td><i style='background:#377eb8'></i> Energy & Natural Resources</td></tr>"+
@@ -173,77 +329,25 @@
 
 		var baseMaps = {
 			'OSM Standard': basemap_0,
-			'Stamen Toner': basemap_1,
 			'OSM HOT': basemap_2,
 			'MapQuestOpen Aerial': basemap_3,
-			'Stamen Terrain': basemap_4
+			'Stamen Terrain': basemap_4,
+			'Stamen Toner': basemap_1
 		};
 
 		L.control.layers(baseMaps,
 			{
 				// "Business Locations": exp_2015272ClusterAnalysiswaddresslibreshpJSON,
-				"AOG": exp_AOGJSON,
-				//"AOG Names": exp_AOGLabelsshp
+				"AOGs": exp_AOGJSON,
+				"Aerospace & Defense": exp_aerospace,
+				"Energy & Natural Resources": exp_energy,
+				"Finance": exp_finance,
+				"IT\/Software": exp_it,
+				"Life Sciences": exp_science,
+				"Outdoor Recreation": exp_outdoor
 			},
 			{collapsed:false}).addTo(map);
-		
-		function updateOpacity(value) {
-		}
-
-		var clusterDropdown = L.control({position: 'topright'});
-		clusterDropdown.onAdd = function (map) {
-			var div = L.DomUtil.create('div', 'info legend');
-			div.innerHTML = "<select id='none' onchange=addLayer(this.value)>" +
-                               "<option selected disabled value='none'>Choose a Cluster</option>" +
-                               "<option value='Aerospace & Defense'>Aerospace & Defense</option>" +
-                               "<option value='Energy & Natural Resources'>Energy & Natural Resources</option>" +
-                               "<option value='Finance'>Finance</option>" +
-                               "<option value='IT\/Software'>IT/Software</option>" +
-                               "<option value='Life Sciences'>Life Sciences</option>" +
-                               "<option value='Outdoor Recreation'>Outdoor Recreation</option>" + 
-                               "</select>";
-    		div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation;
- 			return div;
-		};
-		clusterDropdown.addTo(map);
-		
-		
-
-		var dropdownLayer;
-		function addLayer(text){
-			var bizData = exp_2015272ClusterAnalysiswaddresslibreshp;
-			var selection = text;
-			var fill_selection;
-			var border_selection;
-			if (selection == 'Aerospace & Defense'){ fill_selection = '#ffff33'; border_selection = '#ffff33'}
-			else if (selection == 'Energy & Natural Resources'){ fill_selection = '#377eb8'; border_selection = '#377eb8'}
-			else if (selection == 'Finance'){ fill_selection = '#e41a1c'; border_selection = '#e41a1c'}
-			else if (selection == 'IT\/Software'){ fill_selection = '#ff7f00'; border_selection = '#ff7f00'}
-			else if (selection == 'Life Sciences'){ fill_selection = '#984ea3'; border_selection = '#984ea3'}
-			else if (selection == 'Outdoor Recreation'){ fill_selection = '#4daf4a'; border_selection = '#4daf4a'}
-			else { fill_selection = '#000'; border_selection = '#000'}
-
-			if (dropdownLayer){
-				map.removeLayer(dropdownLayer);
-			}
-			dropdownLayer = L.geoJson(bizData, {
-				onEachFeature: pop_2015272ClusterAnalysiswaddresslibreshp, //getting the geojson data for each record
 				
-			    pointToLayer: function (feature, latlng) { // styling the layers
-			    		return new L.CircleMarker(latlng, 
-			    				{
-			    					radius: 5, 
-									fillColor: fill_selection,
-									weight: 1,
-									color: '#111111',
-			    					fillOpacity: 0.75
-			    				});
-			    },
-			    filter: function(feature, layer) { //filtering the layers by selection
-				        return feature.properties.NAICS_CLUS == selection;
-				    }
-				}).addTo(map);
-		};
 		
 		L.control.scale({options: {position: 'bottomleft',maxWidth: 100,metric: true,imperial: false,updateWhenIdle: false}}).addTo(map);
 	</script>
