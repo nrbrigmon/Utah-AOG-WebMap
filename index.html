@@ -54,7 +54,7 @@
 		var exp_AOGJSON = new L.geoJson(exp_AOG,{
 			onEachFeature: pop_AOG,
 			style: function (feature) {
-				return {fillColor: feature.properties.color_qgis2leaf,
+				return {fillColor: '#999',//feature.properties.color_qgis2leaf,
 						color: '#000',
 						weight: 1,
 						opacity: feature.properties.transp_qgis2leaf,
@@ -120,7 +120,8 @@
 			
 			div.innerHTML = "<h3>Legend</h3>" + 
 							"<table><tr><td><i style='background:#ffff33'></i> Aerospace & Defense</td></tr>"+ 
-							"<tr><td><i style='background:#377eb8'></i> Finance</td></tr>"+
+							"<tr><td><i style='background:#377eb8'></i> Energy & Natural Resources</td></tr>"+
+							"<tr><td><i style='background:#e41a1c'></i> Finance</td></tr>"+
 							"<tr><td><i style='background:#ff7f00'></i> IT\/Software</td></tr>"+
 							"<tr><td><i style='background:#984ea3'></i> Life Sciences</td></tr>"+
 							"<tr><td><i style='background:#4daf4a'></i> Outdoor Recreation</td></tr>";
