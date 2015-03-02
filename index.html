@@ -113,13 +113,20 @@
 		};
 		title.addTo(map);
 		
-		// var legend = L.control({position: 'bottomright'});
-		// legend.onAdd = function (map) {
-		// 	var div = L.DomUtil.create('div', 'info legend');
-		// 	div.innerHTML = "<h3>Legend</h3><table></table>";
- 	// 		return div;
-		// };
-		// legend.addTo(map);
+		var legend = L.control({position: 'bottomright'});
+		
+		legend.onAdd = function (map) {
+			var div = L.DomUtil.create('div', 'info legend');
+			
+			div.innerHTML = "<h3>Legend</h3>" + 
+							"<table><tr><td><i style='background:#ffff33'></i> Aerospace & Defense</td></tr>"+ 
+							"<tr><td><i style='background:#377eb8'></i> Finance</td></tr>"+
+							"<tr><td><i style='background:#ff7f00'></i> IT\/Software</td></tr>"+
+							"<tr><td><i style='background:#984ea3'></i> Life Sciences</td></tr>"+
+							"<tr><td><i style='background:#4daf4a'></i> Outdoor Recreation</td></tr>";
+ 			return div;
+		};
+		legend.addTo(map);
 
 		var baseMaps = {
 			'OSM Standard': basemap_0,
@@ -183,7 +190,8 @@
 			    				{
 			    					radius: 5, 
 									fillColor: fill_selection,
-									color: '#DDDDDD',
+									weight: 1,
+									color: '#111111',
 			    					fillOpacity: 0.75
 			    				});
 			    },
