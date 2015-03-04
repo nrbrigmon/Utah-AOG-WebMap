@@ -30,6 +30,7 @@
 	<script src='data/it_geojson.js' ></script>
 	<script src='data/outdoor_geojson.js' ></script>
 	<script src='data/science_geojson.js' ></script>
+	<script src='data/manu_geojson.js' ></script>
 				
 	<script>
 		var map = L.map('map', { zoomControl:true }).fitBounds([[36.7783345514,-115.739588748],[42.0924227749,-107.063127211]]);
@@ -299,6 +300,38 @@
 		// exp_outdoor.addTo(map);
 
 		/////////////////////////////
+		//manufacturing
+		function pop_manu(feature, layer) {
+			var popupContent = '<table><tr><th scope="row">Name</th><td>' + Autolinker.link(String(feature.properties['NAME'])) + 
+		 		'</td></tr><tr><th scope="row">City</th><td>' + Autolinker.link(String(feature.properties['CITY'])) + 
+		 		', Utah</td></tr><tr><th scope="row">Cluster</th><td>' + Autolinker.link(String(feature.properties['NAICS_CLUS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Code</th><td>' + Autolinker.link(String(feature.properties['NAICS'])) + 
+		 		'</td></tr><tr><th scope="row">NAICS Industry</th><td>' + Autolinker.link(String(feature.properties['NAICS_DESC'])) + '</td></tr></table>';
+			layer.bindPopup(popupContent);
+		}
+						
+		var exp_manu = new L.geoJson(manu_json,{
+			onEachFeature: pop_manu,
+			pointToLayer: function (feature, latlng) {  
+				return L.circleMarker(latlng, {
+			    					radius: 5, 
+									fillColor: '#a65628',
+									weight: 1,
+									color: '#111111',
+			    					fillOpacity: 0.75
+					})
+				}
+			});
+		feature_group.addLayer(exp_manu);
+		layerOrder[layerOrder.length] = exp_manu;
+		
+		for (index = 0; index < layerOrder.length; index++) {
+				feature_group.removeLayer(layerOrder[index]);
+				feature_group.addLayer(layerOrder[index]);
+		}
+		//add comment sign to hide this layer on the map in the initial view.
+		// exp_manu.addTo(map);
+		/////////////////////////////
 		//title
 		var title = new L.Control();
 		title.onAdd = function (map) {
@@ -322,6 +355,7 @@
 							"<tr><td><i style='background:#e41a1c'></i> Finance</td></tr>"+
 							"<tr><td><i style='background:#ff7f00'></i> IT\/Software</td></tr>"+
 							"<tr><td><i style='background:#984ea3'></i> Life Sciences</td></tr>"+
+							"<tr><td><i style='background:#a65628'></i> Manufacuturing</td></tr>"+
 							"<tr><td><i style='background:#4daf4a'></i> Outdoor Recreation</td></tr>";
  			return div;
 		};
@@ -344,6 +378,7 @@
 				"Finance": exp_finance,
 				"IT\/Software": exp_it,
 				"Life Sciences": exp_science,
+				"Manufacturing": exp_manu,
 				"Outdoor Recreation": exp_outdoor
 			},
 			{collapsed:false}).addTo(map);
