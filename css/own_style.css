@@ -36,6 +36,9 @@
 	.leaflet-container {
     	background: #FFF;
 	}
+	.leaflet-popup{
+		z-index: 99;
+	}
 	.legend i {
 	    width: 18px;
 	    height: 18px;
